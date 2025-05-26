@@ -5,8 +5,8 @@ on:
     branches: [ main ]
     types: [closed]
   schedule:
-    - cron: '0 13 * * *'  # 8:00 AM GMT-5 (13:00 UTC)
-  workflow_dispatch:  # Permitir ejecución manual
+    - cron: '0 13 * * *'  # 8:00 AM GMT-5
+  workflow_dispatch:
 
 jobs:
   migrate-to-production:
@@ -17,28 +17,35 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Generate migration from DEV
+    - name: Check current state DEV
       run: |
-        cd ${{ github.workspace }}
-        flyway check -drift -environment=development -reportFilename=reports/pre-migration-report.html
+        flyway info -environment=development
         
-    - name: Create migration script
+    - name: Generate drift report DEV
       run: |
-        flyway migrate -dryRunOutput=migrations/V$(date +%Y%m%d%H%M%S)__auto_migration_from_dev.sql -environment=development -target=current
+        flyway check -drift -environment=development -reportFilename=reports/dev-drift-$(date +%Y%m%d_%H%M%S).html
         
-    - name: Apply to Production
+    - name: Check PRD before migration
       run: |
         flyway info -environment=production
+        
+    - name: Generate dry run for PRD
+      run: |
+        flyway migrate -dryRunOutput=reports/prd-dryrun-$(date +%Y%m%d_%H%M%S).sql -environment=production
+        
+    - name: Migrate to Production
+      run: |
         flyway migrate -environment=production
         
-    - name: Generate post-migration report
+    - name: Generate post-migration reports
       run: |
-        flyway check -drift -environment=production -reportFilename=reports/post-migration-report.html
+        flyway info -environment=production
+        flyway check -drift -environment=production -reportFilename=reports/prd-post-migration-$(date +%Y%m%d_%H%M%S).html
         
-    - name: Commit new migration files
+    - name: Commit reports
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add migrations/ reports/
-        git commit -m "Auto-generated migration from DEV to PRD" || exit 0
+        git add reports/
+        git commit -m "Migration reports DEV to PRD - $(date +%Y-%m-%d_%H:%M:%S)" || exit 0
         git push
