@@ -1,0 +1,47 @@
+{
+  "individualResults" : [ {
+    "timestamp" : "2025-05-26T06:32:16.338179",
+    "operation" : "drift",
+    "exception" : null,
+    "licenseFailed" : false,
+    "onlyInSource" : [ ],
+    "onlyInTarget" : [ {
+      "objectType" : "Table",
+      "name" : "Articulo",
+      "schema" : "dbo",
+      "definitionBefore" : null,
+      "definitionAfter" : "CREATE TABLE [dbo].[Articulo]\r\n(\r\n[Id] [int] NOT NULL IDENTITY(1, 1),\r\n[Nombre] [nvarchar] (100) NULL,\r\n[Precio] [decimal] (10, 2) NULL,\r\n[FechaCreacion] [datetime] NULL CONSTRAINT [DF__Articulo__FechaC__75A278F5] DEFAULT (getdate()),\r\n[Stock] [int] NULL CONSTRAINT [DF__Articulo__Stock__76969D2E] DEFAULT ((0)),\r\n[borrar] [varchar] (10) NULL\r\n)\r\nGO\r\nALTER TABLE [dbo].[Articulo] ADD CONSTRAINT [PK__Articulo__3214EC071ACCA071] PRIMARY KEY CLUSTERED ([Id])\r\nGO\r\n"
+    }, {
+      "objectType" : "Table",
+      "name" : "direccion",
+      "schema" : "dbo",
+      "definitionBefore" : null,
+      "definitionAfter" : "CREATE TABLE [dbo].[direccion]\r\n(\r\n[Id] [int] NOT NULL IDENTITY(1, 1),\r\n[sector] [varchar] (50) NULL,\r\n[calle] [varchar] (50) NULL,\r\n[clienteId] [int] NULL\r\n)\r\nGO\r\nALTER TABLE [dbo].[direccion] ADD CONSTRAINT [PK__direccio__3214EC0717CFA420] PRIMARY KEY CLUSTERED ([Id])\r\nGO\r\n"
+    } ],
+    "differences" : [ ],
+    "database" : "DEV",
+    "driftDetected" : true
+  }, {
+    "timestamp" : "2025-05-26T06:38:04.710529",
+    "operation" : "drift",
+    "exception" : null,
+    "licenseFailed" : false,
+    "onlyInSource" : [ ],
+    "onlyInTarget" : [ {
+      "objectType" : "Table",
+      "name" : "Articulo",
+      "schema" : "dbo",
+      "definitionBefore" : null,
+      "definitionAfter" : "CREATE TABLE [dbo].[Articulo]\r\n(\r\n[Id] [int] NOT NULL IDENTITY(1, 1),\r\n[Nombre] [nvarchar] (100) NULL,\r\n[Precio] [decimal] (10, 2) NULL,\r\n[FechaCreacion] [datetime] NULL CONSTRAINT [DF__Articulo__FechaC__75A278F5] DEFAULT (getdate()),\r\n[Stock] [int] NULL CONSTRAINT [DF__Articulo__Stock__76969D2E] DEFAULT ((0)),\r\n[borrar] [varchar] (10) NULL\r\n)\r\nGO\r\nALTER TABLE [dbo].[Articulo] ADD CONSTRAINT [PK__Articulo__3214EC071ACCA071] PRIMARY KEY CLUSTERED ([Id])\r\nGO\r\n"
+    }, {
+      "objectType" : "Table",
+      "name" : "direccion",
+      "schema" : "dbo",
+      "definitionBefore" : null,
+      "definitionAfter" : "CREATE TABLE [dbo].[direccion]\r\n(\r\n[Id] [int] NOT NULL IDENTITY(1, 1),\r\n[sector] [varchar] (50) NULL,\r\n[calle] [varchar] (50) NULL,\r\n[clienteId] [int] NULL\r\n)\r\nGO\r\nALTER TABLE [dbo].[direccion] ADD CONSTRAINT [PK__direccio__3214EC0717CFA420] PRIMARY KEY CLUSTERED ([Id])\r\nGO\r\n"
+    } ],
+    "differences" : [ ],
+    "database" : "DEV",
+    "driftDetected" : true
+  } ]
+}

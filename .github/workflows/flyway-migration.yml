@@ -23,7 +23,11 @@ jobs:
         
     - name: Generate drift report DEV
       run: |
-        flyway check -drift -environment=development -reportFilename=reports/dev-drift-$(date +%Y%m%d_%H%M%S).html
+        flyway check -drift -environment=development -check.deployedSnapshot=snapshots/dev-baseline.sql -reportFilename=reports/dev-drift-$(Get-Date -Format "yyyyMMdd_HHmmss").html
+        
+    - name: Generate changes report DEV
+      run: |
+        flyway check -changes -environment=development -check.deployedSnapshot=snapshots/dev-baseline.sql -reportFilename=reports/dev-changes-$(Get-Date -Format "yyyyMMdd_HHmmss").html
         
     - name: Check PRD before migration
       run: |
@@ -31,7 +35,7 @@ jobs:
         
     - name: Generate dry run for PRD
       run: |
-        flyway migrate -dryRunOutput=reports/prd-dryrun-$(date +%Y%m%d_%H%M%S).sql -environment=production
+        flyway migrate -dryRunOutput=reports/prd-dryrun-$(Get-Date -Format "yyyyMMdd_HHmmss").sql -environment=production
         
     - name: Migrate to Production
       run: |
@@ -40,12 +44,12 @@ jobs:
     - name: Generate post-migration reports
       run: |
         flyway info -environment=production
-        flyway check -drift -environment=production -reportFilename=reports/prd-post-migration-$(date +%Y%m%d_%H%M%S).html
+        flyway check -drift -environment=production -check.deployedSnapshot=snapshots/dev-baseline.sql -reportFilename=reports/prd-post-migration-$(Get-Date -Format "yyyyMMdd_HHmmss").html
         
     - name: Commit reports
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add reports/
-        git commit -m "Migration reports DEV to PRD - $(date +%Y-%m-%d_%H:%M:%S)" || exit 0
-        git push
+        git commit -m "Migration reports DEV to PRD - $(Get-Date -Format 'yyyy-MM-dd_HH:mm:ss')" -ErrorAction SilentlyContinue
+        git push -ErrorAction SilentlyContinue

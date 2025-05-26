@@ -7,13 +7,13 @@ changes = true
 deployedSnapshot = "snapshots/dev-baseline.sql"
 drift = true
 enabled = true
-referenceSnapshot = "snapshots/dev-baseline.sql"  # Cambia aquí
+referenceSnapshot = "snapshots/dev-baseline.sql"
 reportEnabled = true
 reportFilename = "reports/drift-report.html"
 reportFormat = "html"
 reportOpen = true
-
-# Habilitar reportes adicionales
+buildEnvironment = "development"
+nextSnapshot = "snapshots/dev-next.sql"
 changeReportEnabled = true
 changeReportFilename = "reports/change-report.html"
 migrationReportEnabled = true
@@ -47,8 +47,8 @@ outOfOrder = true
 schemaModelLocation = "schema-model"
 validateMigrationNaming = true
 
-[flyway.check]
-majorTolerance = 0
+  [flyway.check]
+  majorTolerance = 0
 
 [flyway.sqlserver.clean]
 mode = "all"
@@ -57,11 +57,14 @@ mode = "all"
 developmentEnvironment = "development"
 shadowEnvironment = "shadow"
 
+  [flywayDesktop.generate]
+  undoScripts = true
+
 [redgateCompare]
 filterFile = "filter.rgf"
 
-[redgateCompare.sqlserver]
-filterFile = "Filter.scpf"
+  [redgateCompare.sqlserver]
+  filterFile = "Filter.scpf"
 
 [redgateCompare.sqlserver.data.options.comparison]
 compressTemporaryFiles = false
@@ -152,6 +155,3 @@ ignoreWhiteSpace = true
 ignoreWithElementOrder = true
 ignoreWithEncryption = false
 ignoreWithNoCheck = true
-
-
-

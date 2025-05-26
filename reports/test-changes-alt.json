@@ -1,0 +1,12 @@
+{
+  "individualResults" : [ {
+    "timestamp" : "2025-05-26T06:39:12.0951523",
+    "operation" : "changes",
+    "exception" : null,
+    "licenseFailed" : false,
+    "onlyInSource" : [ ],
+    "onlyInTarget" : [ ],
+    "differences" : [ ],
+    "database" : "DEV"
+  } ]
+}
