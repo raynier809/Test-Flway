@@ -1,0 +1,2 @@
+ALTER TABLE Articulo
+DROP COLUMN borrar;

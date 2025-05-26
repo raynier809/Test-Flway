@@ -1,0 +1,2 @@
+ALTER TABLE Articulo
+ADD Stock INT DEFAULT 0;

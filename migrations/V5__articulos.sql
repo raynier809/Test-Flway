@@ -1,0 +1,7 @@
+
+CREATE TABLE Articulo (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100),
+    Precio DECIMAL(10,2),
+    FechaCreacion DATETIME DEFAULT GETDATE()
+);
