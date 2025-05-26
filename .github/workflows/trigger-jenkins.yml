@@ -29,4 +29,4 @@ jobs:
             Se adjunta el reporte HTML generado en la rama DEV.
 
             Saludos.
-          attachments: reports/report_drif.html
+          attachments: reports/drift-report.html
