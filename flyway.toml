@@ -7,11 +7,14 @@ changes = true
 deployedSnapshot = "snapshots/dev-baseline.sql"
 drift = true
 enabled = true
-referenceSnapshot = "snapshots/dev-baseline.sql"
+referenceSnapshot = "snapshots/dev-baseline.sql"  # Cambia aquí
 reportEnabled = true
 reportFilename = "reports/drift-report.html"
 reportFormat = "html"
 reportOpen = true
+
+[snapshot]
+filename = "snapshots/dev-baseline.sql"
 
 [environments.development]
 driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
@@ -142,5 +145,4 @@ ignoreWithElementOrder = true
 ignoreWithEncryption = false
 ignoreWithNoCheck = true
 
-[snapshot]
-filename = "snapshots/dev-baseline.sql"
+
