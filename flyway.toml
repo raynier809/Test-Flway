@@ -13,6 +13,14 @@ reportFilename = "reports/drift-report.html"
 reportFormat = "html"
 reportOpen = true
 
+# Habilitar reportes adicionales
+changeReportEnabled = true
+changeReportFilename = "reports/change-report.html"
+migrationReportEnabled = true
+migrationReportFilename = "reports/migration-report.html"
+dryRunReportEnabled = true
+dryRunReportFilename = "reports/dry-run-report.html"
+
 [snapshot]
 filename = "snapshots/dev-baseline.sql"
 

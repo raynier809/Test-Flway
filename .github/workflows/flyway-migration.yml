@@ -1,0 +1,44 @@
+name: Flyway Migration DEV to PRD
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [closed]
+  schedule:
+    - cron: '0 13 * * *'  # 8:00 AM GMT-5 (13:00 UTC)
+  workflow_dispatch:  # Permitir ejecución manual
+
+jobs:
+  migrate-to-production:
+    runs-on: self-hosted
+    if: github.event.pull_request.merged == true || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Generate migration from DEV
+      run: |
+        cd ${{ github.workspace }}
+        flyway check -drift -environment=development -reportFilename=reports/pre-migration-report.html
+        
+    - name: Create migration script
+      run: |
+        flyway migrate -dryRunOutput=migrations/V$(date +%Y%m%d%H%M%S)__auto_migration_from_dev.sql -environment=development -target=current
+        
+    - name: Apply to Production
+      run: |
+        flyway info -environment=production
+        flyway migrate -environment=production
+        
+    - name: Generate post-migration report
+      run: |
+        flyway check -drift -environment=production -reportFilename=reports/post-migration-report.html
+        
+    - name: Commit new migration files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add migrations/ reports/
+        git commit -m "Auto-generated migration from DEV to PRD" || exit 0
+        git push
