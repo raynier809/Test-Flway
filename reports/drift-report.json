@@ -9,5 +9,21 @@
     "differences" : [ ],
     "database" : "DEV",
     "driftDetected" : false
+  }, {
+    "timestamp" : "2025-05-26T02:46:29.2806637",
+    "operation" : "drift",
+    "exception" : null,
+    "licenseFailed" : false,
+    "onlyInSource" : [ ],
+    "onlyInTarget" : [ {
+      "objectType" : "Table",
+      "name" : "direccion",
+      "schema" : "dbo",
+      "definitionBefore" : null,
+      "definitionAfter" : "CREATE TABLE [dbo].[direccion]\r\n(\r\n[Id] [int] NOT NULL IDENTITY(1, 1),\r\n[sector] [varchar] (50) NULL,\r\n[calle] [varchar] (50) NULL,\r\n[clienteId] [int] NULL\r\n)\r\nGO\r\nALTER TABLE [dbo].[direccion] ADD CONSTRAINT [PK__direccio__3214EC0717CFA420] PRIMARY KEY CLUSTERED ([Id])\r\nGO\r\n"
+    } ],
+    "differences" : [ ],
+    "database" : "DEV",
+    "driftDetected" : true
   } ]
 }
